@@ -9,7 +9,7 @@
       ping:
   roles:
     - python
-    - mysql_db
+    - mysqldb
 
 - name: Setup Web Servers
   hosts: webservers
@@ -18,4 +18,4 @@
   connection: ssh
   roles:
     - python
-    - flask_web
+    - flaskweb
