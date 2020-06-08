@@ -16,7 +16,7 @@
           mode: 0600
       when: ec2_key.changed
 
-    - name: Provision a set of instances
+    - name: create web server
       ec2:
          key_name: demo-key
          region: us-east-2
@@ -24,8 +24,19 @@
          image: "{{ ami_id }}"
          wait: true
          exact_count: 1
-         count_tag:
-            Name: Demo
          instance_tags:
-            Name: Demo
+            Name: webserver
       register: ec2
+      
+      - name: create db server
+      ec2:
+         key_name: demo-key
+         region: us-east-2
+         instance_type: t2.micro
+         image: "{{ ami_id }}"
+         wait: true
+         exact_count: 1
+         instance_tags:
+            Name: Db
+      register: ec2
+
