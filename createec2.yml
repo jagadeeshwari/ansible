@@ -1,0 +1,31 @@
+- hosts: localhost
+  gather_facts: False
+  vars:
+     ami_id: ami-0a54aef4ef3b5f881
+  tasks:
+    - name: Create an EC2 key
+      ec2_key:
+            name: demo-key
+            region: us-east-2
+      register: ec2_key
+
+    - name: Save private key
+      copy:
+          content: "{{ ec2_key.key.private_key }}"
+          dest: "./aws-private.pem"
+          mode: 0600
+      when: ec2_key.changed
+
+    - name: Provision a set of instances
+      ec2:
+         key_name: demo-key
+         region: us-east-2
+         instance_type: t2.micro
+         image: "{{ ami_id }}"
+         wait: true
+         exact_count: 1
+         count_tag:
+            Name: Demo
+         instance_tags:
+            Name: Demo
+      register: ec2
