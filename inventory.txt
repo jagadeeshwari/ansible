@@ -1,0 +1,6 @@
+[webservers]
+webserver1 ansible_connection=ssh
+webserver2 ansible_connection=ssh
+
+[dbserver]
+dbserver1 ansible_connection=ssh
