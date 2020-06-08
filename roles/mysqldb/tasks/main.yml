@@ -6,11 +6,9 @@
         - mysql-client
 
     - name: Update MySQL Configuration file to accept connections from all interfaces
-      linein_file:
+      lineinfile:
         path: /etc/mysql/my.cnf
-        section: mysqld
-        option: bind-address
-        value: 0.0.0.0
+        line: 'bind-address = 0.0.0.0'
 
     - name: Start MySQL Service
       service:
