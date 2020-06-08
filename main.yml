@@ -1,6 +1,6 @@
 - name: Setup Database Server
 
-  hosts: db_servers
+  hosts: dbserver
   become: yes
   become_method: sudo
   connection: ssh
@@ -12,7 +12,7 @@
     - mysql_db
 
 - name: Setup Web Servers
-  hosts: web_servers
+  hosts: webservers
   become: yes
   become_method: sudo
   connection: ssh
